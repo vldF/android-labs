@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Lab3.4</string>
+    <string name="to_second">to second</string>
+    <string name="to_first">to first</string>
+    <string name="to_third">to third</string>
+    <string name="lorem_ipsum">Lorem ipsum</string>
+    <string name="about">about</string>
+    <string name="this_in_new_task">this in new task</string>
+</resources>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/frag_1">
+    <fragment
+        android:id="@+id/frag_1"
+        android:label="frag1"
+        android:name="me.vldf.lab35.FragFirst"
+        tools:layout="@layout/fragment_frag_first">
+        <action
+            android:id="@+id/action_frag_1_to_frag_2"
+            app:destination="@id/frag_2" />
+    </fragment>
+    <fragment
+        android:id="@+id/frag_2"
+        android:label="frag2"
+        android:name="me.vldf.lab35.FragSecond"
+        tools:layout="@layout/fragment_frag_second">
+        <action
+            android:id="@+id/action_frag_2_to_frag_3"
+            app:destination="@id/frag_3" />
+        <action
+            android:id="@+id/action_frag_2_to_frag_1"
+            app:destination="@id/frag_1" />
+    </fragment>
+    <fragment
+        android:id="@+id/frag_3"
+        android:label="frag3"
+        android:name="me.vldf.lab35.FragThird"
+        tools:layout="@layout/fragment_frag_third">
+        <action
+            android:id="@+id/action_frag_3_to_frag_1"
+            app:destination="@id/frag_1" />
+        <action
+            android:id="@+id/action_frag_3_to_frag_2"
+            app:destination="@id/frag_2" />
+    </fragment>
+    <activity
+        android:id="@+id/about"
+        android:name="me.vldf.lab35.About"
+        android:label="activity_about"
+        tools:layout="@layout/activity_about" />
+    <action
+        android:id="@+id/action_open_about"
+        app:destination="@id/about" />
+</navigation>
