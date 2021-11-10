@@ -18,6 +18,7 @@ class Second : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         val extra: Bundle = intent.extras ?: error("extras is null")
         val activityNo = extra[TO_KEY] ?: error("to key didn't specified")
@@ -31,10 +32,10 @@ class Second : AppCompatActivity() {
             processMenu(this, it)
         }
 
-        findViewById<Button>(R.id.to_third)?.setOnClickListener {
+        findViewById<Button>(R.id.bnToThird)?.setOnClickListener {
             jumpToThird()
         }
-        findViewById<Button>(R.id.to_first)?.setOnClickListener {
+        findViewById<Button>(R.id.bnToFirst)?.setOnClickListener {
             backToFirst()
         }
     }
@@ -50,5 +51,10 @@ class Second : AppCompatActivity() {
         }
         setResult(Activity.RESULT_OK, data)
         finish()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

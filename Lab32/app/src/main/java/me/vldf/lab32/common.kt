@@ -8,7 +8,7 @@ const val TO_KEY = "to"
 
 fun processMenu(context: Context, item: MenuItem): Boolean {
     when (item.itemId) {
-        R.id.bottom_menu -> {
+        R.id.nav_view -> {
             val intent = Intent(context, About::class.java)
             context.startActivity(intent)
             return true

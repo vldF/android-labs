@@ -1,4 +1,4 @@
-package me.vldf.lab33
+package me.vldf.lab35
 
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.launchActivity

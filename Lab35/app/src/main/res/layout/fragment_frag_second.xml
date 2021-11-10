@@ -3,23 +3,24 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:id="@+id/fragment2" >
 
     <Button
-        android:id="@+id/to_first"
+        android:id="@+id/bnToFirst"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@id/to_third"
+        app:layout_constraintBottom_toTopOf="@id/bnToThird"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/to_first"/>
     <Button
-        android:id="@+id/to_third"
+        android:id="@+id/bnToThird"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/to_first"
+        app:layout_constraintTop_toBottomOf="@id/bnToFirst"
         android:text="@string/to_third"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -12,14 +12,16 @@ class Third : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_third)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         findViewById<BottomNavigationView>(R.id.bottom_nav).setOnItemSelectedListener {
             processMenu(this, it)
         }
 
-        findViewById<Button>(R.id.to_first)?.setOnClickListener {
+        findViewById<Button>(R.id.bnToFirst)?.setOnClickListener {
             back(1)
         }
-        findViewById<Button>(R.id.to_second)?.setOnClickListener {
+        findViewById<Button>(R.id.bnToSecond)?.setOnClickListener {
             back(2)
         }
     }
@@ -32,5 +34,10 @@ class Third : AppCompatActivity() {
         }
         setResult(Activity.RESULT_OK, data)
         finish()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 }

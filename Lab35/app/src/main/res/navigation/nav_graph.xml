@@ -23,7 +23,9 @@
             app:destination="@id/frag_3" />
         <action
             android:id="@+id/action_frag_2_to_frag_1"
-            app:destination="@id/frag_1" />
+            app:destination="@id/frag_1"
+            app:popUpTo="@id/frag_1"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/frag_3"
@@ -32,10 +34,14 @@
         tools:layout="@layout/fragment_frag_third">
         <action
             android:id="@+id/action_frag_3_to_frag_1"
-            app:destination="@id/frag_1" />
+            app:destination="@id/frag_1"
+            app:popUpTo="@id/frag_1"
+            app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_frag_3_to_frag_2"
-            app:destination="@id/frag_2" />
+            app:destination="@id/frag_2"
+            app:popUpTo="@id/frag_2"
+            app:popUpToInclusive="true" />
     </fragment>
     <activity
         android:id="@+id/about"

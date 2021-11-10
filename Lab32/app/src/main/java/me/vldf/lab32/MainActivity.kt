@@ -5,7 +5,7 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class First : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
     private val secondLauncher = registerForActivityResult(Contract(Second::class.java)) { }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -15,7 +15,7 @@ class First : AppCompatActivity() {
             processMenu(this, it)
         }
 
-        findViewById<Button>(R.id.to_second)?.setOnClickListener {
+        findViewById<Button>(R.id.bnToSecond)?.setOnClickListener {
             secondLauncher.launch(2)
         }
     }

@@ -11,17 +11,23 @@ class Second : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_second)
 
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         findViewById<BottomNavigationView>(R.id.bottom_nav).setOnItemSelectedListener {
             processMenu(this, it)
         }
 
-        findViewById<Button>(R.id.to_third)?.setOnClickListener {
+        findViewById<Button>(R.id.bnToThird)?.setOnClickListener {
             val intent = Intent(this, Third::class.java)
             startActivity(intent)
         }
-        findViewById<Button>(R.id.to_first)?.setOnClickListener {
+        findViewById<Button>(R.id.bnToFirst)?.setOnClickListener {
             finish()
         }
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        finish()
+        return true
+    }
 }
