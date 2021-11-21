@@ -30,9 +30,9 @@ class MainActivityThread : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         baseTime = sharedPref.getLong(SECONDS_KEY, 0)
+        isThreadLive = true
         backgroundThread = getThread()
         backgroundThread.start()
-        isThreadLive = true
         startTime = System.currentTimeMillis()
     }
 
