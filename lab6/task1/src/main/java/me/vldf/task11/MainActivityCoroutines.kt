@@ -15,6 +15,7 @@ class MainActivityCoroutines : AppCompatActivity() {
     private lateinit var textSecondsElapsed: TextView
     private lateinit var sharedPref: SharedPreferences
     private lateinit var coroutine: Job
+    private var isCounterEnabled = false
 
     companion object {
         const val SECONDS_KEY = "seconds"
@@ -31,13 +32,12 @@ class MainActivityCoroutines : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         baseTime = sharedPref.getLong(SECONDS_KEY, 0)
-        runBlocking {
-            coroutine = launch(Dispatchers.Main) {
-                while (!Thread.currentThread().isInterrupted) {
-                    delay(10)
-                    textSecondsElapsed.post {
-                        textSecondsElapsed.text = "Seconds elapsed: " + getCurrentTimeToShow()
-                    }
+        isCounterEnabled = true
+        coroutine = MainScope().launch {
+            while (isCounterEnabled) {
+                delay(10)
+                textSecondsElapsed.post {
+                    textSecondsElapsed.text = "Seconds elapsed: " + getCurrentTimeToShow()
                 }
             }
         }
@@ -46,11 +46,7 @@ class MainActivityCoroutines : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        runBlocking {
-            launch(Dispatchers.Main) {
-                coroutine.cancelAndJoin()
-            }
-        }
+        isCounterEnabled = false
 
         with(sharedPref.edit()) {
             putLong(SECONDS_KEY, getCurrentTimeToShow())
