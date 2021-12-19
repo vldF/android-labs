@@ -33,10 +33,10 @@ class MainActivityCoroutines : AppCompatActivity() {
         super.onStart()
         baseTime = sharedPref.getLong(SECONDS_KEY, 0)
         isCounterEnabled = true
-        coroutine = MainScope().launch {
+        coroutine = CoroutineScope(Dispatchers.Default).launch {
             while (isCounterEnabled) {
                 delay(10)
-                textSecondsElapsed.post {
+                MainScope().launch {
                     textSecondsElapsed.text = "Seconds elapsed: " + getCurrentTimeToShow()
                 }
             }

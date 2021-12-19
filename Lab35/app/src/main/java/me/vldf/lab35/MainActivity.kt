@@ -25,8 +25,12 @@ class MainActivity : AppCompatActivity() {
             AppBarConfiguration.Builder(controller.graph).build()
         )
         binding.bottomNav.setOnItemSelectedListener {
-            controller.navigate(R.id.action_open_about)
-            true
+            if (it.itemId == R.id.nav_view) {
+                controller.navigate(R.id.action_open_about)
+                true
+            } else {
+                false
+            }
         }
     }
 

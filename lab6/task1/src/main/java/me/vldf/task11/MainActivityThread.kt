@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.math.roundToLong
@@ -13,7 +14,6 @@ class MainActivityThread : AppCompatActivity() {
     private var startTime: Long = 0
     private lateinit var textSecondsElapsed: TextView
     private lateinit var sharedPref: SharedPreferences
-    private var isThreadLive = false
     private lateinit var backgroundThread: Thread
 
     companion object {
@@ -30,7 +30,6 @@ class MainActivityThread : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         baseTime = sharedPref.getLong(SECONDS_KEY, 0)
-        isThreadLive = true
         backgroundThread = getThread()
         backgroundThread.start()
         startTime = System.currentTimeMillis()
@@ -38,7 +37,7 @@ class MainActivityThread : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
-        isThreadLive = false
+        backgroundThread.interrupt()
         with(sharedPref.edit()) {
             putLong(SECONDS_KEY, getCurrentTimeToShow())
             apply()
@@ -47,8 +46,12 @@ class MainActivityThread : AppCompatActivity() {
 
     @SuppressLint("SetTextI18n")
     private fun getThread() = Thread {
-        while (isThreadLive) {
-            Thread.sleep(10)
+        while (!Thread.currentThread().isInterrupted) {
+            try {
+                Thread.sleep(10)
+            } catch (e: InterruptedException) {
+                Log.d("thread", "thread is interrupted")
+            }
             textSecondsElapsed.post {
                 textSecondsElapsed.text = "Seconds elapsed: " + getCurrentTimeToShow()
             }

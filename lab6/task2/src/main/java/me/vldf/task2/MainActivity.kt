@@ -1,5 +1,6 @@
 package me.vldf.task2
 
+import android.app.Application
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
@@ -10,10 +11,11 @@ import android.graphics.BitmapFactory
 import android.util.Log
 import android.widget.ImageView
 import java.net.URL
+import java.util.concurrent.ExecutorService
 
 
 class MainActivity : AppCompatActivity() {
-    private val executorService = Executors.newSingleThreadExecutor()
+    private val executorService by lazy { (application as ExecutorServiceBasedApplication).executor }
     private lateinit var imageView: ImageView
     private val images = mutableListOf(
         URL("https://sun9-82.userapi.com/impg/ig4zJCphZpBvgXkal3Vru0h0V7HjloD1VxgsTA/sYw_HiNtBS4.jpg?size=1200x630&quality=96&sign=3b9b8b7638b925da5ad4108aad642324&type=album"),
@@ -25,13 +27,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
+        imageView = findViewById(R.id.image)
 
         findViewById<Button>(R.id.btn).setOnClickListener(::getUpdateImage)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        imageView = findViewById(R.id.image)
     }
 
     private fun getUpdateImage(view: View) {
@@ -47,4 +45,8 @@ class MainActivity : AppCompatActivity() {
             view.isClickable = true
         }
     }
+}
+
+class ExecutorServiceBasedApplication : Application() {
+    var executor: ExecutorService = Executors.newSingleThreadExecutor()
 }

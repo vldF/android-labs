@@ -3,6 +3,7 @@ package me.vldf.task4
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.ImageView
@@ -21,14 +22,11 @@ class MainActivity : AppCompatActivity() {
     private val imageCache = mutableMapOf<URL, Bitmap>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        Log.d("on create", "on create")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main)
 
         findViewById<Button>(R.id.btn).setOnClickListener(::getUpdateImage)
-    }
-
-    override fun onStart() {
-        super.onStart()
         imageView = findViewById(R.id.image)
     }
 
@@ -40,9 +38,7 @@ class MainActivity : AppCompatActivity() {
                 BitmapFactory.decodeStream(url.openStream())
             }
             imageCache[url] = image
-            imageView.post {
-                imageView.setImageBitmap(image)
-            }
+            imageView.setImageBitmap(image)
             view.isClickable = true
         }
     }

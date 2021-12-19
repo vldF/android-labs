@@ -1,5 +1,6 @@
 package me.vldf.task4
 
+import android.app.Application
 import android.os.Bundle
 import android.view.View
 import android.widget.Button
@@ -7,6 +8,8 @@ import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import java.net.URL
+import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 
 class MainActivity : AppCompatActivity() {
