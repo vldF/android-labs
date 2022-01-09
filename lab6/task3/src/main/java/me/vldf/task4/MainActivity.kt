@@ -8,7 +8,9 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.*
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import java.net.URL
 
 
@@ -30,16 +32,14 @@ class MainActivity : AppCompatActivity() {
         imageView = findViewById(R.id.image)
     }
 
-    private fun getUpdateImage(view: View) {
-        MainScope().launch {
-            view.isClickable = false
-            val url = images.random()
-            val image = imageCache[url] ?: withContext(Dispatchers.IO) {
-                BitmapFactory.decodeStream(url.openStream())
-            }
-            imageCache[url] = image
-            imageView.setImageBitmap(image)
-            view.isClickable = true
+    private fun getUpdateImage(view: View) = lifecycleScope.launchWhenCreated {
+        view.isClickable = false
+        val url = images.random()
+        val image = imageCache[url] ?: withContext(Dispatchers.IO) {
+            BitmapFactory.decodeStream(url.openStream())
         }
+        imageCache[url] = image
+        imageView.setImageBitmap(image)
+        view.isClickable = true
     }
 }
