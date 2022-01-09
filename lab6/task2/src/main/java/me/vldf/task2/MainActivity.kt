@@ -12,6 +12,7 @@ import android.util.Log
 import android.widget.ImageView
 import java.net.URL
 import java.util.concurrent.ExecutorService
+import java.util.concurrent.Future
 
 
 class MainActivity : AppCompatActivity() {
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
         URL("https://sun9-33.userapi.com/impg/hQopWF-7ylpgCR9l7y1GgO6rlsIa_eVRAPW9wg/Y8o8qjjPLGs.jpg?size=500x332&quality=96&sign=1f4539fa54bc7fddc095892523da63c5&type=album")
     )
     private val imageCache = mutableMapOf<URL, Bitmap>()
+    private var job: Future<*>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,10 +34,15 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.btn).setOnClickListener(::getUpdateImage)
     }
 
+    override fun onDestroy() {
+        job?.cancel(true)
+        super.onDestroy()
+    }
+
     private fun getUpdateImage(view: View) {
         Log.i("main", "getUpdateImage: pressed")
         view.isClickable = false
-        executorService.submit {
+        job = executorService.submit {
             val url = images.random()
             val image = imageCache[url] ?: BitmapFactory.decodeStream(url.openStream())
             imageCache[url] = image
