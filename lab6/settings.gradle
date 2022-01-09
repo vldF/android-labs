@@ -9,5 +9,5 @@ dependencyResolutionManagement {
 rootProject.name = "lab6"
 include ':task1'
 include ':task2'
-include ':tast3'
+include ':task3'
 include ':task4'
